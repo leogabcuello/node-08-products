@@ -3,16 +3,16 @@ const {
     getAllUser,
     createUser,
     deleteUser,
-    updateAllUser,
-    updatePartierUser        
+    updateUser,
+    getById        
 } = require('../controllers/users');
 
 const router = Router();
 
 router.get('/', getAllUser);
 router.post('/', createUser); 
-router.put('/:id', updateAllUser);
-router.patch('/:id', updatePartierUser);
+router.put('/:id', updateUser);
+router.get('/:id', getById);
 router.delete('/:id', deleteUser);
 
 module.exports = router;
