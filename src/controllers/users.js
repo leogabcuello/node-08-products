@@ -1,99 +1,120 @@
 const express = require('express');
+//const logger = require('../loaders/logger');
+const { 
+    findAll,
+    findById,
+    save,
+    update,
+    remove 
+} = require('../services/userService');    
+const Success = require('../handlers/successHandler');
 
 /**
  * 
  * @param {express.Request} req 
  * @param {express.Response} res 
- */
+ */ 
 
-const getAllUser = (req, res) => {
-    const user = [
-        {
-            id:1,
-            name:'leo'
-        },
-        {
-            id:2,
-            name:'pepe'
-        },
-    ]
-    res.json(user);
-};
-
-/**
- * 
- * @param {express.Request} req 
- * @param {express.Response} res 
- */
-const createUser = (req, res) => {
+const getAllUser = async (req, res, next) => {
     
-    const user = req.body;
-
-    user.id = 854564;
-
-    const result = {
-        message: 'user create',
-        user
-    }
-    res.status(201).json(result);
+    try {
+        const users = await findAll(req.query.filter, req.query.options);
+        res.json(new Success(users));
+    } catch(err){
+        next(err);
+    }    
 };
+    
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+*/
+
+const getById = async (req, res, next) => {
+    
+    try {
+        const { id } = req.params;
+        
+        const user = await findById(id);
+    
+        res.json(new Success(user));
+    } catch(err) {
+        next(err);
+    }
+};    
+
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */ 
+const createUser = async (req, res, next) => {
+    
+    try{
+        let user = req.body;
+    
+        user = await save(user);
+    
+        const result = {
+            message: 'user create',
+            user
+        }    
+        res.json(new Success(result));
+    } catch(err){
+        next(err);
+    }    
+};    
+
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */ 
+const updateUser = async (req, res, next) => {
+    
+    try {
+        const { id } = req.params;
+        const user = req.body;
+
+        await update(id,user);
+    
+        const result = {
+            message: 'user update',
+            user
+        }    
+        res.json(new Success(result));
+    } catch(err){
+      next(err);  
+    }  
+};    
 
 /**
  * 
  * @param {express.Request} req 
  * @param {express.Response} res 
  */
-const updateAllUser = (req, res) => {
+const deleteUser = async(req, res, next) => {
     
-    const { id } = req.params;
-    const user = req.body;
-
-    user.id = id;
-
-    const result = {
-        message: 'user update',
-        user
-    }
-    res.json(result);
-};
-
-/**
- * 
- * @param {express.Request} req 
- * @param {express.Response} res 
- */
-const updatePartierUser = (req, res) => {
+    try {
+        const { id } = req.params;
     
-    const { id } = req.params;
-    const user = req.body;
-
-    user.id = id;
-
-    const result = {
-        message: 'user update with patch',
-        user
-    }
-    res.json(result);
-};
-
-/**
- * 
- * @param {express.Request} req 
- * @param {express.Response} res 
- */
-const deleteUser = (req, res) => {
+        const user = await remove(id);
     
-    const { id } = req.params;
-    const result = {
-        message: `user with id: ${id} deleted`
+        const result = {
+            message: `user with id: ${id} deleted`,
+            user
+        }
+        res.json(new Success(result));
+    } catch(err){
+       next(err);
     }
-    res.json(result);
 };
 
 module.exports = {
     getAllUser,
     createUser,
     deleteUser,
-    updateAllUser,
-    updatePartierUser    
+    updateUser,
+    getById    
 }

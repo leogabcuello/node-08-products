@@ -66,7 +66,9 @@ class ExpressServer {
             const body = {
                 error: {
                     code,
-                    message: err.message
+                    message: err.message,
+                    detail: err.data,
+                    detail: err.data
                 }
             }
             res.json(body);

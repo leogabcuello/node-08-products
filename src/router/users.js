@@ -6,11 +6,12 @@ const {
     updateAllUser,
     updatePartierUser        
 } = require('../controllers/users');
-
+const { postReuestValidation } = require('../middlewares/users');
+ 
 const router = Router();
 
-router.get('/', getAllUser);
-router.post('/', createUser); 
+router.get('/',  getAllUser);
+router.post('/', postReuestValidation, createUser); 
 router.put('/:id', updateAllUser);
 router.patch('/:id', updatePartierUser);
 router.delete('/:id', deleteUser);
