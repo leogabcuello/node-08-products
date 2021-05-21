@@ -1,5 +1,5 @@
 {
-  "name": "node-06-restserver",
+  "name": "node-08-products",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/leogabcuello/node-06-restserver.git"
+    "url": "git+https://github.com/leogabcuello/node-08-products.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/leogabcuello/node-06-restserver/issues"
+    "url": "https://github.com/leogabcuello/node-08-products/issues"
   },
-  "homepage": "https://github.com/leogabcuello/node-06-restserver#readme",
+  "homepage": "https://github.com/leogabcuello/node-08-products#readme",
   "dependencies": {
     "dotenv": "^9.0.1",
     "express": "^4.17.1",
