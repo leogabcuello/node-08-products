@@ -10,12 +10,13 @@ const {
     postReuestValidation,
     putRequestValidation,
     deleteRequestValidation,
-    getByIdRequestValidation
+    getByIdRequestValidation,
+    getallRequestValidation
  } = require('../middlewares/users');
  
 const router = Router();
 
-router.get('/',  getAllUser);
+router.get('/', getallRequestValidation, getAllUser);
 router.post('/', postReuestValidation, createUser); 
 router.put('/:id', putRequestValidation,updateUser);
 router.get('/:id', getByIdRequestValidation, getById);

@@ -2,10 +2,16 @@ const { check } = require('express-validator');
 const AppError = require ('../../errors/appError');
 const { 
     findByEmail,
-    findById } = require('../../services/userService');
-const { ROLE } = require('../../constants'); 
+    findById 
+    } = require('../../services/userService');
+const { 
+    ROLE,
+    ADMIN_ROLE,
+    USER_ROLE
+    } = require('../../constants'); 
 const { validationResult } = require('../commons'); 
- 
+const { validJWT, hasRole } = require('../auth'); 
+
 const _nameRequeride = check('name', 'Name Requeride').not().isEmpty();
 const _lastNameRequeride = check('lastName', 'LastName Requeride').not().isEmpty();
 const _emailRequeride = check('email', 'email Requeride').not().isEmpty();
@@ -50,6 +56,8 @@ const _idExist = check('id').custom(
 )
 
 const postReuestValidation = [
+    validJWT,
+    hasRole(ADMIN_ROLE),
     _nameRequeride,
     _lastNameRequeride,
     _emailRequeride,
@@ -58,12 +66,12 @@ const postReuestValidation = [
     _passwordRequeride,
     _roleValid,
     _dateValid,
-    _idRequerid,
-    _idIsMongoDB,
     validationResult
 ]
 
 const putRequestValidation = [
+    validJWT,
+    hasRole(ADMIN_ROLE),
     _roleValid,
     _dateValid,
     _optionalEmailValid,
@@ -75,6 +83,8 @@ const putRequestValidation = [
 ]
 
 const deleteRequestValidation = [
+    validJWT,
+    hasRole(ADMIN_ROLE),
     _idExist,
     _idRequerid,
     _idIsMongoDB,
@@ -82,15 +92,21 @@ const deleteRequestValidation = [
 ]
 
 const getByIdRequestValidation = [
+    validJWT,
+    hasRole(USER_ROLE),
     _idExist,
     _idRequerid,
     _idIsMongoDB,
     validationResult
 ]
 
+const getallRequestValidation = [
+    validJWT
+]
 module.exports = {
     postReuestValidation,
     putRequestValidation,
     deleteRequestValidation,
-    getByIdRequestValidation
+    getByIdRequestValidation,
+    getallRequestValidation
 }
