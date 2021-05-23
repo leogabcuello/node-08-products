@@ -9,7 +9,8 @@ newman.run({
         htmlextra: {
                export: './postman/report.html',
             // template: './template.hbs'
-            // logs: true,            // showOnlyFails: true,
+            // logs: true,
+            // showOnlyFails: true,
             // noSyntaxHighlighting: true,
             // testPaging: true,
             // browserTitle: "My Newman report",
