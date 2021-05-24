@@ -4,15 +4,22 @@ const {
     createUser,
     deleteUser,
     updateUser,
-    getById        
+    getById                
 } = require('../controllers/users');
-
+const { 
+    postReuestValidation,
+    putRequestValidation,
+    deleteRequestValidation,
+    getByIdRequestValidation,
+    getallRequestValidation
+ } = require('../middlewares/users');
+ 
 const router = Router();
 
-router.get('/', getAllUser);
-router.post('/', createUser); 
-router.put('/:id', updateUser);
-router.get('/:id', getById);
-router.delete('/:id', deleteUser);
+router.get('/', getallRequestValidation, getAllUser);
+router.post('/', postReuestValidation, createUser); 
+router.put('/:id', putRequestValidation,updateUser);
+router.get('/:id', getByIdRequestValidation, getById);
+router.delete('/:id',deleteRequestValidation, deleteUser);
 
 module.exports = router;
