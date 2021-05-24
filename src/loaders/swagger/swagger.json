@@ -3,7 +3,7 @@
   "info": {
     "title": "API Rest base repo",
     "description": "This is an API base to start new proyect",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "contact": {
       "email": "you@your-company.com"
     },
@@ -24,21 +24,15 @@
       "description": "Operations available to regular developers"
     }
   ],
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/inventory": {
       "get": {
-        "tags": [
-          "developers"
-        ],
+        "tags": ["developers"],
         "summary": "searches inventory",
         "description": "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
         "operationId": "searchInventory",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "searchString",
@@ -83,18 +77,12 @@
         }
       },
       "post": {
-        "tags": [
-          "admins"
-        ],
+        "tags": ["admins"],
         "summary": "adds an inventory item",
         "description": "Adds an item to the system",
         "operationId": "addInventory",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -123,12 +111,7 @@
   "definitions": {
     "InventoryItem": {
       "type": "object",
-      "required": [
-        "id",
-        "manufacturer",
-        "name",
-        "releaseDate"
-      ],
+      "required": ["id", "manufacturer", "name", "releaseDate"],
       "properties": {
         "id": {
           "type": "string",
@@ -150,9 +133,7 @@
       }
     },
     "Manufacturer": {
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "properties": {
         "name": {
           "type": "string",
